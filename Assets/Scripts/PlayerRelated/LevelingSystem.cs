@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 public class LevelingSystem
 {
     public int currentExp = 0;
@@ -13,7 +16,7 @@ public class LevelingSystem
     public bool GrantExp(int Exp)
     {
         this.currentExp = this.currentExp + Exp;
-        if(this.currentExp > maxExp[level])
+        if(this.currentExp >= maxExp[level])
         {
             LevelUp();
             return true;
@@ -25,5 +28,11 @@ public class LevelingSystem
     {
         this.currentExp = this.currentExp - maxExp[level];
         this.level++;
+    }
+
+    public void ResetLevel()
+    {
+        level = 0;
+        currentExp = 0;
     }
 }

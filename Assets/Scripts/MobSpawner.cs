@@ -6,16 +6,18 @@ public class MobSpawner : MonoBehaviour
 {
     public GameObject monster;
 
+    public int id;
+
     private int mobCounter = 0;
     public int maxMobs = 3;
     private bool isActive = true;
 
     public float spawnCooldown = 3;
     public float activeCooldown = 6;
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
-        
+        this.id = GameObject.Find("Game").GetComponent<Game>().GetID();
     }
 
     // Update is called once per frame
@@ -32,8 +34,8 @@ public class MobSpawner : MonoBehaviour
 
     private void spawn()
     {
-        GameObject slime = (GameObject)GameObject.Instantiate(monster,new Vector2( transform.position.x, transform.position.y), Quaternion.identity);
-        slime.GetComponent<Slime>().Constructor(transform.parent.transform.gameObject,gameObject);
+        GameObject slime = GameObject.Instantiate(monster,new Vector2( transform.position.x, transform.position.y), Quaternion.identity);
+        slime.GetComponent<Slime>().Constructor(transform.parent.transform.gameObject,gameObject,id);
     }
 
     public void ReduceCounter()
@@ -44,5 +46,15 @@ public class MobSpawner : MonoBehaviour
     private void ActiveSpawner()
     {
         isActive = true;
+    }
+
+    public void ForceSpawn(int health,Vector3 pos)
+    {
+        mobCounter++;
+        GameObject slime = GameObject.Instantiate(monster, pos, Quaternion.identity);
+        slime.GetComponent<Slime>().Constructor(transform.parent.transform.gameObject, gameObject, id);
+        slime.transform.position = pos;
+        slime.GetComponent<Slime>().healthSystem.SetHealth(health);
+        slime.GetComponentInChildren<HealthBarUpdate>().HealthUpdate(slime.GetComponent<Slime>().healthSystem.GetMaxHealth(), slime.GetComponent<Slime>().healthSystem.GetHealth());
     }
 }

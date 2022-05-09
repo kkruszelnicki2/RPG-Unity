@@ -14,22 +14,30 @@ public class PlayerController : MonoBehaviour
     public float speed;
     private Vector2 direction;
     private bool canMove = true;
+    private Vector3 movement;
+    private Rigidbody2D playerRigidbody2D;
 
     //attacking
     public GameObject attackHitbox;
     public int damage;
+    public int baseDamage;
     public int damageScale;
+
+    //inventory
+    public GameObject inventory;
 
     private Animator _animator;
 
     private IEnumerator coroutine;
 
-    HealthSystem healthSystem = new HealthSystem(100);
-    LevelingSystem levelingSystem = new LevelingSystem();
+    public HealthSystem healthSystem = new HealthSystem(100);
+    public LevelingSystem levelingSystem = new LevelingSystem();
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        GameObject.Find("InventoryUI").GetComponent<Inventory>().Constructor();
+        playerRigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     void Start() // Start is called before the first frame update
@@ -109,15 +117,8 @@ public class PlayerController : MonoBehaviour
             Invoke("Attack", 0.17f);
             Invoke("Attack", 0.25f); //collision with sword is active for 8 seconds
             Invoke("CanMoveAgain",1); //player will be able to walk after 1 second
-        }
-
-        if(canMove) //if player is able to walk
-        {
-            Vector2 movement = direction.normalized * speed * Time.deltaTime; 
-            transform.Translate(movement);
-        }
+        } 
     }
-
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy" && !protection)
@@ -128,8 +129,15 @@ public class PlayerController : MonoBehaviour
 
             coroutine = RemoveProtection(0.2f);
             StartCoroutine(coroutine);
+        }
+    }
 
-            //collision.GetComponent<Slime>().Push();
+    private void FixedUpdate()
+    {
+        if (canMove) //if player is able to walk
+        {
+            movement = direction.normalized * speed * Time.deltaTime;
+            playerRigidbody2D.MovePosition(transform.position + movement);
         }
     }
 
@@ -159,7 +167,7 @@ public class PlayerController : MonoBehaviour
         ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[0]).GetComponent<PlayerBars>().UpdateHealthBar(healthSystem.GetHealth(), healthSystem.GetMaxHealth()); //updating health bar
     }
 
-    IEnumerator RemoveProtection(float time) //Function in loop that happens after player is hit by an enemy
+    IEnumerator RemoveProtection(float time) //Function in loop that happens after player is hit by the enemy
     {
         while(time >= 0.001f) //Player can't get hit while his protection is active
         {
@@ -170,5 +178,20 @@ public class PlayerController : MonoBehaviour
         
         protection = false;
         yield break; //ending loop
+    }
+
+    //After clicking "New Game"
+    public void PlayerReset()
+    {
+        transform.position = new Vector3(0.167f,-0.076f,0);
+
+        damage = baseDamage;
+        healthSystem.resetHealth(baseHealth);
+        ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[0]).GetComponent<PlayerBars>().UpdateHealthBar(healthSystem.GetHealth(), healthSystem.GetMaxHealth());
+
+        levelingSystem.ResetLevel();
+        ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[0]).GetComponent<PlayerBars>().UpdateExpBar(levelingSystem.currentExp, levelingSystem.maxExp[levelingSystem.level]); //updating EXP bar
+
+        GameObject.Find("InventoryUI").GetComponent<Inventory>().ResetEquipment();
     }
 }

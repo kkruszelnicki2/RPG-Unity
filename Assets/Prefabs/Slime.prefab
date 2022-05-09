@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1553286670}
   - component: {fileID: 1553286671}
-  - component: {fileID: 7705024296686657576}
+  - component: {fileID: 2576390378389372520}
   m_Layer: 0
   m_Name: HealthBar
   m_TagString: Untagged
@@ -168,7 +168,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7705024296686657576
+--- !u!114 &2576390378389372520
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1553286669}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0872724f85a72b4428d42985fa032dc6, type: 3}
+  m_Script: {fileID: 11500000, guid: ca948664606687341b3b08f4398b018f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6073543014583400806
@@ -191,10 +191,11 @@ GameObject:
   - component: {fileID: 6073543014583400804}
   - component: {fileID: 6073543014583400807}
   - component: {fileID: 6073543014583400805}
-  - component: {fileID: 6073543014583400802}
   - component: {fileID: 6073543014583400803}
   - component: {fileID: 6073543014583400800}
-  - component: {fileID: -5601703505804368096}
+  - component: {fileID: 5183809142785986296}
+  - component: {fileID: 9222625744960972931}
+  - component: {fileID: 91880961}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Enemy
@@ -295,23 +296,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3510402, y: 0.2573945}
   m_EdgeRadius: 0
---- !u!114 &6073543014583400802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6073543014583400806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08df70373b3659f4fba4a7f6d72caa6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Place: {fileID: 0}
-  speed: 0.5
-  sightRange: 0.5
-  hitTicks: 10
-  damage: 10
 --- !u!50 &6073543014583400803
 Rigidbody2D:
   serializedVersion: 4
@@ -331,7 +315,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!95 &6073543014583400800
 Animator:
@@ -352,7 +336,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-5601703505804368096
+--- !u!114 &5183809142785986296
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -361,6 +345,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 6073543014583400806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44bb8ecec3bd9fa44a62749e34c4f784, type: 3}
+  m_Script: {fileID: 11500000, guid: 40d0df17a46dc0941b76a735b5721838, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Place: {fileID: 0}
+  speed: 0.5
+  sightRange: 0.5
+  hitTicks: 10
+  damage: 20
+  exp: 2
+--- !u!114 &9222625744960972931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6073543014583400806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ece827b771e0f44a96b3c8f6cc7a4ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 4724402055370637537, guid: da29e5e8242a9184995da1b91d140982, type: 3}
+--- !u!114 &91880961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6073543014583400806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8f377002b2b56b4b9076e1540a55124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

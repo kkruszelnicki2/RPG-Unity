@@ -14,9 +14,19 @@ public class HealthSystem
         return health;
     }
 
+    public void SetHealth(int newHealth)
+    {
+        this.health = newHealth;
+    }
+
     public int GetMaxHealth()
     {
         return maxHealth;
+    }
+
+    public void SetMaxHealth(int newHealth)
+    {
+        this.maxHealth = newHealth;
     }
 
     public void Damage(int health)
@@ -47,5 +57,11 @@ public class HealthSystem
     {
         this.maxHealth = this.maxHealth + health;
         this.health = this.health + health;
+    }
+
+    public void resetHealth(int newHealth)
+    {
+        this.maxHealth = newHealth;
+        this.health = newHealth;
     }
 }

@@ -6,7 +6,7 @@ public class HealthBarUpdate : MonoBehaviour
 {
     private float basicScale;
     private float newScale;
-    public void Start()
+    public void Awake()
     {
         basicScale = transform.localScale.x;
     }

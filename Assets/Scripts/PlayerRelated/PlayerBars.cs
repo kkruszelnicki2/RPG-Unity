@@ -13,13 +13,14 @@ public class PlayerBars : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        hpBar = (Slider)GameObject.FindObjectsOfType(typeof(Slider))[1];
-        expBar = (Slider)GameObject.FindObjectsOfType(typeof(Slider))[0];
+        hpBar = (Slider)GameObject.FindObjectsOfType(typeof(Slider))[0];
+        expBar = (Slider)GameObject.FindObjectsOfType(typeof(Slider))[1];
     }
 
     public void UpdateHealthBar(int playerHealth, int playerMaxHealth)
     {
         hpBar.value = (float)playerHealth / (float)playerMaxHealth;
+
         if (hpBar.value <= hpBar.minValue)
         {
             fillImage.enabled = false;
