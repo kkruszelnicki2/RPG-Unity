@@ -51,7 +51,7 @@ public class Slime : MonoBehaviour
             float scaleX;
             if (transform.position.x - Player.transform.position.x == 0)
             {
-                scaleX = 1;
+                scaleX = transform.localScale.x;
             }
             else
             {

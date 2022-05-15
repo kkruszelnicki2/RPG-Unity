@@ -123,12 +123,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy" && !protection)
         {
-            protection = true;
-            healthSystem.Damage(collision.GetComponent<Slime>().damage);
-            ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[0]).GetComponent<PlayerBars>().UpdateHealthBar(healthSystem.GetHealth(), healthSystem.GetMaxHealth());
+            GetAttacked(collision.GetComponent<Slime>().damage);
 
-            coroutine = RemoveProtection(0.2f);
-            StartCoroutine(coroutine);
         }
     }
 
@@ -157,14 +153,14 @@ public class PlayerController : MonoBehaviour
         {
             BaseStatsUp();
         }
-        ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[0]).GetComponent<PlayerBars>().UpdateExpBar(levelingSystem.currentExp, levelingSystem.maxExp[levelingSystem.level]); //updating EXP bar
+        ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[2]).GetComponent<PlayerBars>().UpdateExpBar(levelingSystem.currentExp, levelingSystem.maxExp[levelingSystem.level]); //updating EXP bar
     }
 
     private void BaseStatsUp() //Raising stats after reaching next level
     {
         damage = damage + damageScale;
         healthSystem.setHealth(healthScale);
-        ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[0]).GetComponent<PlayerBars>().UpdateHealthBar(healthSystem.GetHealth(), healthSystem.GetMaxHealth()); //updating health bar
+        ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[1]).GetComponent<PlayerBars>().UpdateHealthBar(healthSystem.GetHealth(), healthSystem.GetMaxHealth()); //updating health bar
     }
 
     IEnumerator RemoveProtection(float time) //Function in loop that happens after player is hit by the enemy
@@ -187,11 +183,21 @@ public class PlayerController : MonoBehaviour
 
         damage = baseDamage;
         healthSystem.resetHealth(baseHealth);
-        ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[0]).GetComponent<PlayerBars>().UpdateHealthBar(healthSystem.GetHealth(), healthSystem.GetMaxHealth());
+        ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[1]).GetComponent<PlayerBars>().UpdateHealthBar(healthSystem.GetHealth(), healthSystem.GetMaxHealth());
 
         levelingSystem.ResetLevel();
-        ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[0]).GetComponent<PlayerBars>().UpdateExpBar(levelingSystem.currentExp, levelingSystem.maxExp[levelingSystem.level]); //updating EXP bar
+        ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[2]).GetComponent<PlayerBars>().UpdateExpBar(levelingSystem.currentExp, levelingSystem.maxExp[levelingSystem.level]); //updating EXP bar
 
         GameObject.Find("InventoryUI").GetComponent<Inventory>().ResetEquipment();
+    }
+
+    public void GetAttacked(int damage)
+    {
+        protection = true;
+        healthSystem.Damage(damage);
+        ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[1]).GetComponent<PlayerBars>().UpdateHealthBar(healthSystem.GetHealth(), healthSystem.GetMaxHealth());
+
+        coroutine = RemoveProtection(0.2f);
+        StartCoroutine(coroutine);
     }
 }
