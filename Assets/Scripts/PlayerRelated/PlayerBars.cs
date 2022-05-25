@@ -12,7 +12,7 @@ public class PlayerBars : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        hpBar = (Slider)GameObject.FindObjectsOfType(typeof(Slider))[1];
+        hpBar = (Slider)GameObject.FindObjectsOfType(typeof(Slider))[0];
         expBar = (Slider)GameObject.FindObjectsOfType(typeof(Slider))[2];
     }
 

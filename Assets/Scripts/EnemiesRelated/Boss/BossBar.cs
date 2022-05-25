@@ -10,7 +10,7 @@ public class BossBar : MonoBehaviour
 
     private void Awake()
     {
-        hBar = (Slider)GameObject.FindObjectsOfType(typeof(Slider))[0];
+        hBar = (Slider)GameObject.FindObjectsOfType(typeof(Slider))[1];
     }
     public void Show()
     {

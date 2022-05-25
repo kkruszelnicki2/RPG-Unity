@@ -41,7 +41,7 @@ public class Boss : MonoBehaviour
     //Statistics
     private int attackDamage = 30;
     private int jumpDamage = 50;
-    public HealthSystem healthSystem = new HealthSystem(10000);
+    public HealthSystem healthSystem = new HealthSystem(100);
     private int exp = 100;
 
 
@@ -51,7 +51,6 @@ public class Boss : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player"); //przypisanie obiektu gracza
 
         bossBar = GetComponent<BossBar>();
-        bossBar.UpdateHealthBar(healthSystem.GetHealth(), healthSystem.GetMaxHealth());
     }
 
     // Update is called once per frame
@@ -248,6 +247,8 @@ public class Boss : MonoBehaviour
         bossBar.Hide();
 
         player.GetComponent<PlayerController>().Experience(exp);
+
+        GameObject.Find("QuestLog").GetComponent<QuestLog>().Progress("Król Slime");
 
         Destroy(gameObject);
     }

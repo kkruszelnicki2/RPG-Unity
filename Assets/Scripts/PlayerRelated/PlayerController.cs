@@ -51,7 +51,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D)) //moving with WSAD
         {
             direction.x = direction.x + 1;
-            transform.localScale = new Vector3(1, 1, 1);
+            if (!GameObject.Find("Game").GetComponent<Game>().dialogue)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
@@ -61,7 +64,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             direction.x = direction.x - 1;
-            transform.localScale = new Vector3(-1, 1, 1);
+            if (!GameObject.Find("Game").GetComponent<Game>().dialogue)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -73,7 +79,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.D))
         {
             direction.x = direction.x - 1;
-            if(direction.x != 0)
+            if(direction.x != 0 && !GameObject.Find("Game").GetComponent<Game>().dialogue)
             {
                 transform.localScale = new Vector3(-1, 1, 1);
             }
@@ -82,7 +88,7 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.A))
         {
             direction.x = direction.x + 1;
-            if (direction.x != 0)
+            if (direction.x != 0 && !GameObject.Find("Game").GetComponent<Game>().dialogue)
             {
                 transform.localScale = new Vector3(1, 1, 1);
             }
@@ -103,13 +109,13 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("Idle", true);
             _animator.SetBool("Run", false);
         }
-        else if(!direction.Equals(Vector2.zero) && _animator.GetBool("Idle")) //start run animation if player is moving and is idle
+        else if(!direction.Equals(Vector2.zero) && _animator.GetBool("Idle") && !GameObject.Find("Game").GetComponent<Game>().dialogue) //start run animation if player is moving and is idle
         {
             _animator.SetBool("Idle", false);
             _animator.SetBool("Run", true);
         }
 
-        if(Input.GetKeyDown(KeyCode.Mouse0) && canMove)
+        if(Input.GetKeyDown(KeyCode.Mouse0) && canMove && !GameObject.Find("Game").GetComponent<Game>().dialogue)
         {
             _animator.SetTrigger("Attack");
             _animator.SetBool("Idle", true);
@@ -118,6 +124,12 @@ public class PlayerController : MonoBehaviour
             Invoke("Attack", 0.25f); //collision with sword is active for 8 seconds
             Invoke("CanMoveAgain",1); //player will be able to walk after 1 second
         } 
+    }
+
+    public void DontMove()
+    {
+        _animator.SetBool("Idle", true);
+        _animator.SetBool("Run", false);
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -130,7 +142,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (canMove) //if player is able to walk
+        if (canMove && !GameObject.Find("Game").GetComponent<Game>().dialogue) //if player is able to walk
         {
             movement = direction.normalized * speed * Time.deltaTime;
             playerRigidbody2D.MovePosition(transform.position + movement);
@@ -153,14 +165,14 @@ public class PlayerController : MonoBehaviour
         {
             BaseStatsUp();
         }
-        ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[2]).GetComponent<PlayerBars>().UpdateExpBar(levelingSystem.currentExp, levelingSystem.maxExp[levelingSystem.level]); //updating EXP bar
+        GetComponent<PlayerBars>().UpdateExpBar(levelingSystem.currentExp, levelingSystem.maxExp[levelingSystem.level]); //updating EXP bar
     }
 
     private void BaseStatsUp() //Raising stats after reaching next level
     {
         damage = damage + damageScale;
         healthSystem.setHealth(healthScale);
-        ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[1]).GetComponent<PlayerBars>().UpdateHealthBar(healthSystem.GetHealth(), healthSystem.GetMaxHealth()); //updating health bar
+        GetComponent<PlayerBars>().UpdateHealthBar(healthSystem.GetHealth(), healthSystem.GetMaxHealth()); //updating health bar
     }
 
     IEnumerator RemoveProtection(float time) //Function in loop that happens after player is hit by the enemy
@@ -183,10 +195,10 @@ public class PlayerController : MonoBehaviour
 
         damage = baseDamage;
         healthSystem.resetHealth(baseHealth);
-        ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[1]).GetComponent<PlayerBars>().UpdateHealthBar(healthSystem.GetHealth(), healthSystem.GetMaxHealth());
+        GetComponent<PlayerBars>().UpdateHealthBar(healthSystem.GetHealth(), healthSystem.GetMaxHealth());
 
         levelingSystem.ResetLevel();
-        ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[2]).GetComponent<PlayerBars>().UpdateExpBar(levelingSystem.currentExp, levelingSystem.maxExp[levelingSystem.level]); //updating EXP bar
+        GetComponent<PlayerBars>().UpdateExpBar(levelingSystem.currentExp, levelingSystem.maxExp[levelingSystem.level]); //updating EXP bar
 
         GameObject.Find("InventoryUI").GetComponent<Inventory>().ResetEquipment();
     }
@@ -195,7 +207,7 @@ public class PlayerController : MonoBehaviour
     {
         protection = true;
         healthSystem.Damage(damage);
-        ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[1]).GetComponent<PlayerBars>().UpdateHealthBar(healthSystem.GetHealth(), healthSystem.GetMaxHealth());
+        GetComponent<PlayerBars>().UpdateHealthBar(healthSystem.GetHealth(), healthSystem.GetMaxHealth());
 
         coroutine = RemoveProtection(0.2f);
         StartCoroutine(coroutine);

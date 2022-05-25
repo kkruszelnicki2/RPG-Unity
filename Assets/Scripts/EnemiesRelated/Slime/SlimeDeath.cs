@@ -20,6 +20,8 @@ public class SlimeDeath : MonoBehaviour
             Destroy(itemInstance.gameObject);
         }
 
+        GameObject.Find("QuestLog").GetComponent<QuestLog>().Progress("Slime");
+
         Destroy(gameObject);
     }
 }
