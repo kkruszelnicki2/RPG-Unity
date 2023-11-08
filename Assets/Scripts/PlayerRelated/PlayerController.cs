@@ -23,9 +23,6 @@ public class PlayerController : MonoBehaviour
     public int baseDamage;
     public int damageScale;
 
-    //inventory
-    public GameObject inventory;
-
     private Animator _animator;
 
     private IEnumerator coroutine;

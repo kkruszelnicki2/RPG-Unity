@@ -5,11 +5,9 @@ using UnityEngine;
 public class NPC : MonoBehaviour
 {
     // Start is called before the first frame update
-
-    private int iterator = 0;
     private bool isCollision = false;
 
-    public string name; 
+    public string NPCname; 
 
     [TextArea(3, 10)] public string[] quest1;
     [TextArea(3, 10)] public string[] quest1End;
@@ -23,7 +21,7 @@ public class NPC : MonoBehaviour
             {
                 if (GameObject.Find("Game").GetComponent<Game>().GetQuest(0) == 0)
                 {
-                    GameObject.Find("DialogueBox").GetComponent<Dialogue>().StartDialogue(quest1, name);
+                    GameObject.Find("DialogueBox").GetComponent<Dialogue>().StartDialogue(quest1, NPCname);
 
                     GameObject.Find("Game").GetComponent<Game>().ManageQuest(0, 1);
                 }
@@ -34,7 +32,7 @@ public class NPC : MonoBehaviour
                 {
                     GameObject.Find("QuestLog").GetComponent<QuestLog>().FinishQuest();
 
-                    GameObject.Find("DialogueBox").GetComponent<Dialogue>().StartDialogue(quest1End, name);
+                    GameObject.Find("DialogueBox").GetComponent<Dialogue>().StartDialogue(quest1End, NPCname);
 
                     GameObject.Find("Game").GetComponent<Game>().ManageQuest(0, 2);
 
@@ -44,7 +42,7 @@ public class NPC : MonoBehaviour
                 {
                     GameObject.Find("QuestLog").GetComponent<QuestLog>().FinishQuest();
 
-                    GameObject.Find("DialogueBox").GetComponent<Dialogue>().StartDialogue(quest2End, name);
+                    GameObject.Find("DialogueBox").GetComponent<Dialogue>().StartDialogue(quest2End, NPCname);
 
                     GameObject.Find("Game").GetComponent<Game>().ManageQuest(1, 2);
                 }

@@ -36,7 +36,6 @@ public class Boss : MonoBehaviour
     bool duringJump = false;
     [SerializeField] float jumpCooldown = 5.0f;
     [SerializeField] float jumpCastTime = 3.0f;
-    [SerializeField] float jumpTime = 4.0f;
 
     //Statistics
     private int attackDamage = 30;

@@ -12,7 +12,7 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.I))
+        if (Input.GetKeyUp(KeyCode.I) && Time.timeScale == 1)
         {
             Move();
         }
@@ -78,5 +78,4 @@ public class Inventory : MonoBehaviour
             itemSlot.GetComponent<ItemSlot>().RemoveItem();
         }
     }
-
 }

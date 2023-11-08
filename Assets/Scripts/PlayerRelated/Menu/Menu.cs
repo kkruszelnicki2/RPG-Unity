@@ -1,12 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Cainos.PixelArtTopDown_Basic;
 
-public class MenuButtonController : MonoBehaviour
+public class PauseMenu : MonoBehaviour
 {
     [SerializeField] Item itemObject;
 
@@ -18,13 +16,25 @@ public class MenuButtonController : MonoBehaviour
 
     private void Awake()
     {
-        if(ApplicationModel.isLoaded)
+        Debug.Log(ApplicationModel.isLoaded);
+        if(ApplicationModel.isLoaded == 1)
         {
             LoadGame();
+            ApplicationModel.isLoaded = 2;
+        }
+        else if (ApplicationModel.isLoaded == 0)
+        {
+            NewGame();
+            ApplicationModel.isLoaded = 2;
         }
         else
         {
-            NewGame();
+            for (int i = 0; i < ApplicationModel.itemAmount.Count; i++)
+            {
+                itemObject.GetComponent<Item>().Constructor(ApplicationModel.itemName[i], ApplicationModel.itemAmount[i], ApplicationModel.itemDamage[i], ApplicationModel.itemTag[i]);
+                GameObject.Find("InventoryUI").GetComponent<Inventory>().AddItem(itemObject, false);
+            }
+            GameObject.Find("Player").transform.position = ApplicationModel.playerPos;
         }
     }
 
@@ -40,6 +50,11 @@ public class MenuButtonController : MonoBehaviour
     {
         isVisible = !isVisible;
         MenuActor.SetActive(isVisible);
+
+        if (isVisible) 
+            Time.timeScale = 0;
+        else 
+            Time.timeScale = 1;
     }
 
     public void ChooseOperation(string operation)
@@ -109,8 +124,8 @@ public class MenuButtonController : MonoBehaviour
                     }
                 }
             }
-            hBar.GetComponent<PlayerBars>().UpdateHealthBar(load.playerHealth, load.playerMaxHealth); //updating health bar
-            eBar.GetComponent<PlayerBars>().UpdateExpBar(load.exp, GameObject.Find("Player").GetComponent<PlayerController>().levelingSystem.maxExp[load.level]); //updating EXP bar
+            //hBar.GetComponent<PlayerBars>().UpdateHealthBar(load.playerHealth, load.playerMaxHealth); //updating health bar
+            //eBar.GetComponent<PlayerBars>().UpdateExpBar(load.exp, GameObject.Find("Player").GetComponent<PlayerController>().levelingSystem.maxExp[load.level]); //updating EXP bar
         }
     }
 
@@ -179,6 +194,8 @@ public class MenuButtonController : MonoBehaviour
         public List<Vector3> enemyPos = new List<Vector3>();
         public List<int> enemyHealth = new List<int>();
         public List<int> enemyID = new List<int>();
+        //Location
+        public string locationName = SceneManager.GetActiveScene().name;
     }
 
     private void Clean()
@@ -200,6 +217,7 @@ public class MenuButtonController : MonoBehaviour
 
     public void ExitGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        Time.timeScale = 1;
+        SceneManager.LoadScene("MainMenu");
     }
 }
