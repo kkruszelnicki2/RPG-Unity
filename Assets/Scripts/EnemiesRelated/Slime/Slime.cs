@@ -2,34 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slime : MonoBehaviour
+public class Slime : Enemy
 {
     private GameObject Player;
-    public GameObject Place;
-    private GameObject Spawner;
-
-    private Animator _animator;
-
-    public int id;
+    public GameObject item;
 
     //Movement
-    public float speed;
     private float tempSpeed;
-    public float sightRange;
     private int hasDestination = 0;
 
     //Damage related
     private bool isDamaged = false;
     public int hitTicks;
-    public int damage;
 
     //Vectors
     private Vector2 direction;
     private Vector2 hitDirection = Vector2.zero;
     private Vector2 destinationPoint;
-
-    //Loot
-    public int exp = 2;
 
     public HealthSystem healthSystem = new HealthSystem(100);
 
@@ -87,10 +76,9 @@ public class Slime : MonoBehaviour
         }
     }
 
-    //Kolizje
-    private void OnTriggerEnter2D(Collider2D collision)
+    public override void GetHit()
     {
-        if (collision.gameObject.name == "attackHitbox" && !isDamaged) //Kolizja z broni¹ gracza
+        if(!isDamaged)
         {
             healthSystem.Damage(Player.GetComponent<PlayerController>().damage);
 
@@ -103,7 +91,7 @@ public class Slime : MonoBehaviour
 
             if (healthSystem.GetHealth() <= 0)
             {
-                gameObject.GetComponent<SlimeDeath>().Death(Spawner,Player);
+                Death();
             }
             gameObject.GetComponentInChildren<HealthBarUpdate>().HealthUpdate(healthSystem.GetMaxHealth(), healthSystem.GetHealth());
         }
@@ -141,15 +129,29 @@ public class Slime : MonoBehaviour
     {
         hasDestination = 0;
     }
-    public void Constructor(GameObject space,GameObject spawner,int newID)
+    public void Constructor(GameObject space,GameObject spawner, int newId)
     {
         this.Place = space;
         this.Spawner = spawner;
-        this.id = newID;
+        this.id = newId;
+        this.exp = 2;
     }
-
-    public GameObject GetSpawner()
+    public override void Death()
     {
-        return Spawner;
+        this.Player.GetComponent<PlayerController>().Experience(gameObject.GetComponent<Slime>().exp);
+
+        this.Spawner.GetComponent<MobSpawner>().ReduceCounter();
+
+        GameObject itemInstance = Instantiate(item, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+        GetComponent<SlimeDrop>().Drop(itemInstance);
+
+        if (itemInstance.GetComponent<Item>().itClass.GetName() == null)
+        {
+            Destroy(itemInstance.gameObject);
+        }
+
+        GameObject.Find("QuestLog").GetComponent<QuestLog>().Progress("Slime");
+
+        Destroy(gameObject);
     }
 }

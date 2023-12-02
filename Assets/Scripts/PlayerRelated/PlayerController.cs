@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
     private void BaseStatsUp() //Raising stats after reaching next level
     {
         damage = damage + damageScale;
-        healthSystem.setHealth(healthScale);
+        healthSystem.UpgradeHealth(healthScale);
         GetComponent<PlayerBars>().UpdateHealthBar(healthSystem.GetHealth(), healthSystem.GetMaxHealth()); //updating health bar
     }
 

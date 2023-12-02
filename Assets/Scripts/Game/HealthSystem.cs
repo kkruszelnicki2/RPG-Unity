@@ -53,7 +53,7 @@ public class HealthSystem
         }
     }
 
-    public void setHealth(int health)
+    public void UpgradeHealth(int health)
     {
         this.maxHealth = this.maxHealth + health;
         this.health = this.health + health;

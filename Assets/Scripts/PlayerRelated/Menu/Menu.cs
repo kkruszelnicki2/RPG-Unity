@@ -8,15 +8,13 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] Item itemObject;
 
-    [SerializeField] Slider hBar;
-    [SerializeField] Slider eBar;
+    [SerializeField] private GameObject player;
 
     [SerializeField] GameObject MenuActor;
     bool isVisible = false;
 
-    private void Awake()
+    private void Start()
     {
-        Debug.Log(ApplicationModel.isLoaded);
         if(ApplicationModel.isLoaded == 1)
         {
             LoadGame();
@@ -29,12 +27,7 @@ public class PauseMenu : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < ApplicationModel.itemAmount.Count; i++)
-            {
-                itemObject.GetComponent<Item>().Constructor(ApplicationModel.itemName[i], ApplicationModel.itemAmount[i], ApplicationModel.itemDamage[i], ApplicationModel.itemTag[i]);
-                GameObject.Find("InventoryUI").GetComponent<Inventory>().AddItem(itemObject, false);
-            }
-            GameObject.Find("Player").transform.position = ApplicationModel.playerPos;
+            MoveScene();
         }
     }
 
@@ -124,8 +117,8 @@ public class PauseMenu : MonoBehaviour
                     }
                 }
             }
-            //hBar.GetComponent<PlayerBars>().UpdateHealthBar(load.playerHealth, load.playerMaxHealth); //updating health bar
-            //eBar.GetComponent<PlayerBars>().UpdateExpBar(load.exp, GameObject.Find("Player").GetComponent<PlayerController>().levelingSystem.maxExp[load.level]); //updating EXP bar
+            player.GetComponent<PlayerBars>().UpdateHealthBar(load.playerHealth, load.playerMaxHealth); //updating health bar
+            player.GetComponent<PlayerBars>().UpdateExpBar(load.exp, GameObject.Find("Player").GetComponent<PlayerController>().levelingSystem.maxExp[load.level]); //updating EXP bar
         }
     }
 
@@ -163,12 +156,28 @@ public class PauseMenu : MonoBehaviour
         {
             saveObject.enemyPos.Add(enemy.transform.position);
             saveObject.enemyHealth.Add(enemy.GetComponent<Slime>().healthSystem.GetHealth());
-            saveObject.enemyID.Add(enemy.GetComponent<Slime>().id);
         }
 
         string save = JsonUtility.ToJson(saveObject);
 
         File.WriteAllText(Application.dataPath + "/save.txt", save);
+    }
+
+    private void MoveScene()
+    {
+        for (int i = 0; i < ApplicationModel.itemAmount.Count; i++)
+        {
+            Debug.Log(ApplicationModel.itemAmount.Count);
+            itemObject.GetComponent<Item>().Constructor(ApplicationModel.itemName[i], ApplicationModel.itemAmount[i], ApplicationModel.itemDamage[i], ApplicationModel.itemTag[i]);
+            GameObject.Find("InventoryUI").GetComponent<Inventory>().AddItem(itemObject, false);
+        }
+
+        player.transform.position = ApplicationModel.playerPos;
+        player.GetComponent<PlayerController>().healthSystem.SetHealth(ApplicationModel.playerHp);
+        player.GetComponent<PlayerController>().levelingSystem.LoadLevel(ApplicationModel.playerLevel);
+        player.GetComponent<PlayerController>().levelingSystem.currentExp = ApplicationModel.playerExp;
+        player.GetComponent<PlayerBars>().UpdateHealthBar(ApplicationModel.playerHp, ApplicationModel.playerMaxHp);
+        player.GetComponent<PlayerBars>().UpdateExpBar(ApplicationModel.playerExp, ApplicationModel.playerMaxExp);
     }
 
     private class SaveObject

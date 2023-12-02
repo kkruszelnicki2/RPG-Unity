@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public List<GameObject> itemSlots = new List<GameObject>();
+    public List<GameObject> itemSlots = new();
 
     bool isVisible = false;
 
-    Vector2 outOfGame = new Vector2(1400,450);
-    Vector2 inGame = new Vector2(800,450);
+    Vector2 outOfGame = new(1400,450);
+    Vector2 inGame = new(800,450);
 
     private void Update()
     {

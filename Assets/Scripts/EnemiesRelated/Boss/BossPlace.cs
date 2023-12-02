@@ -12,8 +12,8 @@ public class BossPlace : MonoBehaviour
         {
             if(!triggered)
             {
-                boss.GetComponent<Boss>().duringFight = true;
-                boss.GetComponent<Boss>().allowMovement();
+                boss.GetComponent<SlimeBoss>().duringFight = true;
+                boss.GetComponent<SlimeBoss>().allowMovement();
                 triggered = true;
             }
         }

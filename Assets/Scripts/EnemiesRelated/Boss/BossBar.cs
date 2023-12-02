@@ -13,7 +13,7 @@ public class BossBar : MonoBehaviour
     }
     public void Show()
     {
-        hBar.transform.position = new Vector2(543f, 500f);
+        hBar.transform.position = new Vector2(600f, 500f);
     }
     public void Hide()
     {
