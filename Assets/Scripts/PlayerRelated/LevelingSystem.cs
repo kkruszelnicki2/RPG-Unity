@@ -7,12 +7,7 @@ public class LevelingSystem
 
     public int[] maxExp = { 50, 100, 200, 350, 550, 800, 1100, 1450, 1850, 2300 , 2800};
 
-    public int level = 0;
-    public LevelingSystem() 
-    {
-
-    }
-
+    public int level  = 0;
     public bool GrantExp(int Exp)
     {
         this.currentExp = this.currentExp + Exp;
@@ -22,6 +17,16 @@ public class LevelingSystem
             return true;
         }
         return false;
+    }
+
+    public int GetMaxExp()
+    {
+        return this.maxExp[level];
+    }
+
+    public void LoadLevel(int level)
+    {
+        this.level = level;
     }
 
     private void LevelUp()

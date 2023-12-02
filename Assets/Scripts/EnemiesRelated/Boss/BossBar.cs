@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class BossBar : MonoBehaviour
 {
     private Slider hBar;
-    public Image fillImage;
 
     private void Awake()
     {
@@ -14,7 +13,7 @@ public class BossBar : MonoBehaviour
     }
     public void Show()
     {
-        hBar.transform.position = new Vector2(543f, 550f);
+        hBar.transform.position = new Vector2(600f, 500f);
     }
     public void Hide()
     {

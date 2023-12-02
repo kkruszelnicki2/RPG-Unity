@@ -10,8 +10,8 @@ public class Dialogue : MonoBehaviour
     [SerializeField] GameObject text;
     [SerializeField] GameObject characterName;
 
-    Vector2 outOfGame = new Vector2(530, -200);
-    Vector2 inGame = new Vector2(530, 150);
+    Vector2 outOfGame = new Vector2(550, -200);
+    Vector2 inGame = new Vector2(587, 150);
 
     public void Update()
     {

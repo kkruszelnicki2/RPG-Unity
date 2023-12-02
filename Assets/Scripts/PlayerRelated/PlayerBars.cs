@@ -6,14 +6,14 @@ using UnityEngine.UI;
 public class PlayerBars : MonoBehaviour
 {
     public Image fillImage;
-    private Slider hpBar;
-    private Slider expBar;
+    [SerializeField] private Slider hpBar;
+    [SerializeField] private Slider expBar;
 
     // Start is called before the first frame update
     void Awake()
     {
-        hpBar = (Slider)GameObject.FindObjectsOfType(typeof(Slider))[0];
-        expBar = (Slider)GameObject.FindObjectsOfType(typeof(Slider))[2];
+        //hpBar = (Slider)GameObject.FindObjectsOfType(typeof(Slider))[0];
+        //expBar = (Slider)GameObject.FindObjectsOfType(typeof(Slider))[2];
     }
 
     public void UpdateHealthBar(int playerHealth, int playerMaxHealth)

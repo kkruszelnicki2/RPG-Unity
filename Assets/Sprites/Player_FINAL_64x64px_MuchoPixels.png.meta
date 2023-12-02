@@ -162,7 +162,7 @@ TextureImporter:
       213: 7664069941932103382
     second: Player_FINAL_64x64px_MuchoPixels_52
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -179,10 +179,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -221,6 +223,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -232,6 +236,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -244,6 +249,20 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1372,9 +1391,62 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      Player_FINAL_64x64px_MuchoPixels_0: -7366105205617024175
+      Player_FINAL_64x64px_MuchoPixels_1: -2992171358620294622
+      Player_FINAL_64x64px_MuchoPixels_10: 2324968423571467817
+      Player_FINAL_64x64px_MuchoPixels_11: 2125206971114942632
+      Player_FINAL_64x64px_MuchoPixels_12: 7130640176001033522
+      Player_FINAL_64x64px_MuchoPixels_13: -4944270576495675462
+      Player_FINAL_64x64px_MuchoPixels_14: -5746362104138482711
+      Player_FINAL_64x64px_MuchoPixels_15: 5779728563887493962
+      Player_FINAL_64x64px_MuchoPixels_16: -4454135396726955531
+      Player_FINAL_64x64px_MuchoPixels_17: -2759208505568362398
+      Player_FINAL_64x64px_MuchoPixels_18: 8026136967787523777
+      Player_FINAL_64x64px_MuchoPixels_19: -7165175871797188879
+      Player_FINAL_64x64px_MuchoPixels_2: 1238722245080640241
+      Player_FINAL_64x64px_MuchoPixels_20: -198951998453510697
+      Player_FINAL_64x64px_MuchoPixels_21: -5635120506500951485
+      Player_FINAL_64x64px_MuchoPixels_22: -2926037506001089205
+      Player_FINAL_64x64px_MuchoPixels_23: -3831606678986121501
+      Player_FINAL_64x64px_MuchoPixels_24: -1664441531918078349
+      Player_FINAL_64x64px_MuchoPixels_25: -4148025079468042950
+      Player_FINAL_64x64px_MuchoPixels_26: -6529801290466842044
+      Player_FINAL_64x64px_MuchoPixels_27: -2696953308421962673
+      Player_FINAL_64x64px_MuchoPixels_28: -3464267588940495416
+      Player_FINAL_64x64px_MuchoPixels_29: -8519456398252835064
+      Player_FINAL_64x64px_MuchoPixels_3: 2655247759273019605
+      Player_FINAL_64x64px_MuchoPixels_30: 5144704181071557959
+      Player_FINAL_64x64px_MuchoPixels_31: -1766482798766063510
+      Player_FINAL_64x64px_MuchoPixels_32: 9030646664394706381
+      Player_FINAL_64x64px_MuchoPixels_33: 2996999198989223356
+      Player_FINAL_64x64px_MuchoPixels_34: 5431206940141243882
+      Player_FINAL_64x64px_MuchoPixels_35: 2638649549570756318
+      Player_FINAL_64x64px_MuchoPixels_36: -6470626796722829135
+      Player_FINAL_64x64px_MuchoPixels_37: -7011157013749391865
+      Player_FINAL_64x64px_MuchoPixels_38: 3476321619080668666
+      Player_FINAL_64x64px_MuchoPixels_39: 209739536833537088
+      Player_FINAL_64x64px_MuchoPixels_4: -6014535175780528313
+      Player_FINAL_64x64px_MuchoPixels_40: 1982693772992224993
+      Player_FINAL_64x64px_MuchoPixels_41: 572379091830398887
+      Player_FINAL_64x64px_MuchoPixels_42: -5500472254415086222
+      Player_FINAL_64x64px_MuchoPixels_43: 3538155877214748801
+      Player_FINAL_64x64px_MuchoPixels_44: 849178767811506389
+      Player_FINAL_64x64px_MuchoPixels_45: -2411142037934160210
+      Player_FINAL_64x64px_MuchoPixels_46: -3194075478124089391
+      Player_FINAL_64x64px_MuchoPixels_47: 6705345606961776876
+      Player_FINAL_64x64px_MuchoPixels_48: -6288072611767765692
+      Player_FINAL_64x64px_MuchoPixels_49: 3106916169588266044
+      Player_FINAL_64x64px_MuchoPixels_5: 5782631584652818417
+      Player_FINAL_64x64px_MuchoPixels_50: 6813333698485793193
+      Player_FINAL_64x64px_MuchoPixels_51: 8289324982705283232
+      Player_FINAL_64x64px_MuchoPixels_52: 7664069941932103382
+      Player_FINAL_64x64px_MuchoPixels_6: 8293219954248152116
+      Player_FINAL_64x64px_MuchoPixels_7: 5203689922140230082
+      Player_FINAL_64x64px_MuchoPixels_8: -3789604901857345135
+      Player_FINAL_64x64px_MuchoPixels_9: -7579217825844806521
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

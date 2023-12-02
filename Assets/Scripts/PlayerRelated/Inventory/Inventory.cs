@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public List<GameObject> itemSlots = new List<GameObject>();
+    public List<GameObject> itemSlots = new();
 
     bool isVisible = false;
 
-    Vector2 outOfGame = new Vector2(1300,450);
-    Vector2 inGame = new Vector2(800,450);
+    Vector2 outOfGame = new(1400,450);
+    Vector2 inGame = new(800,450);
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.I))
+        if (Input.GetKeyUp(KeyCode.I) && Time.timeScale == 1)
         {
             Move();
         }
@@ -78,5 +78,4 @@ public class Inventory : MonoBehaviour
             itemSlot.GetComponent<ItemSlot>().RemoveItem();
         }
     }
-
 }

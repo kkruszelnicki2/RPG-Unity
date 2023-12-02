@@ -8,6 +8,7 @@ TagManager:
   - InventorySlot
   - Item
   - Spawner
+  - Boss
   layers:
   - Default
   - TransparentFX
