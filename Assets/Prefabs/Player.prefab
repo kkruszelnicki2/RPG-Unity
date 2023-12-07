@@ -284,6 +284,8 @@ MonoBehaviour:
   damage: 50
   baseDamage: 50
   damageScale: 5
+  rollSpeed: 2
+  rollDuration: 1
   inventory: {fileID: 0}
 --- !u!50 &999294222
 Rigidbody2D:

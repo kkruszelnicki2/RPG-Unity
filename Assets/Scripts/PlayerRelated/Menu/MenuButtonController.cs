@@ -53,7 +53,9 @@ public class MenuButtonController : MonoBehaviour
             GameObject.Find("Player").GetComponent<PlayerController>().levelingSystem.level = load.level;
             ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[0]).GetComponent<PlayerBars>().UpdateHealthBar(load.playerHealth, load.playerMaxHealth); //updating health bar
             ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[0]).GetComponent<PlayerBars>().UpdateExpBar(load.exp, GameObject.Find("Player").GetComponent<PlayerController>().levelingSystem.maxExp[load.level]); //updating EXP bar
-
+            GameObject.Find("Player").GetComponent<PlayerController>().staminaSystem.currentStamina = load.playerStamina;
+            GameObject.Find("Player").GetComponent<PlayerController>().staminaSystem.maxStamina = load.playerMaxStamina;
+            ((Slider)GameObject.FindObjectsOfType(typeof(Slider))[1]).value = (float)load.playerStamina / (float)load.playerMaxStamina;
             //Items
             for(int i=0; i<load.itemAmount.Count;i++)
             {
@@ -90,6 +92,8 @@ public class MenuButtonController : MonoBehaviour
         saveObject.playerMaxHealth = GameObject.Find("Player").GetComponent<PlayerController>().healthSystem.GetMaxHealth();
         saveObject.exp = GameObject.Find("Player").GetComponent<PlayerController>().levelingSystem.currentExp;
         saveObject.level = GameObject.Find("Player").GetComponent<PlayerController>().levelingSystem.level;
+        saveObject.playerStamina = GameObject.Find("Player").GetComponent<PlayerController>().staminaSystem.currentStamina;
+        saveObject.playerMaxStamina = GameObject.Find("Player").GetComponent<PlayerController>().staminaSystem.maxStamina;
         //Items
         foreach(GameObject itemSlot in GameObject.Find("InventoryUI").GetComponent<Inventory>().itemSlots)
         {
@@ -131,6 +135,8 @@ public class MenuButtonController : MonoBehaviour
         public int playerMaxHealth;
         public int level;
         public int exp;
+        public int playerStamina;
+        public int playerMaxStamina;
         //Items in inventory
         public List<int> itemAmount = new List<int>();
         public List<int> itemDamage = new List<int>();

@@ -23,6 +23,11 @@ public class PlayerController : MonoBehaviour
     public int baseDamage;
     public int damageScale;
 
+    //roll movment
+    public float rollSpeed;
+    public float rollDuration;
+    private bool isRolling;
+    
     //inventory
     public GameObject inventory;
 
@@ -32,12 +37,15 @@ public class PlayerController : MonoBehaviour
 
     public HealthSystem healthSystem = new HealthSystem(100);
     public LevelingSystem levelingSystem = new LevelingSystem();
+    public StaminaSystem staminaSystem;
+
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         GameObject.Find("InventoryUI").GetComponent<Inventory>().Constructor();
         playerRigidbody2D = GetComponent<Rigidbody2D>();
+        staminaSystem = new StaminaSystem(100);
     }
 
     void Start() // Start is called before the first frame update
@@ -104,6 +112,15 @@ public class PlayerController : MonoBehaviour
             direction.y = direction.y - 1;
         }
 
+        if (Input.GetKeyDown(KeyCode.Space) && !isRolling && staminaSystem.currentStamina > 0)
+        {
+            staminaSystem.UseStamina(20);
+            Roll();
+        }
+        
+        staminaSystem.RegenerateStamina(); // Ciągła regeneracja staminy
+        GetComponent<PlayerBars>().UpdateStaminaBar(staminaSystem.currentStamina, staminaSystem.maxStamina); // Aktualizacja paska staminy
+
         if(direction.Equals(Vector2.zero) && !_animator.GetBool("Idle")) //start idle animation if player isn't moving and isn't idle
         {
             _animator.SetBool("Idle", true);
@@ -142,9 +159,17 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (canMove && !GameObject.Find("Game").GetComponent<Game>().dialogue) //if player is able to walk
+        if (canMove && !isRolling && !GameObject.Find("Game").GetComponent<Game>().dialogue) //if player is able to walk
         {
             movement = direction.normalized * speed * Time.deltaTime;
+            if (staminaSystem.currentStamina <= 0)
+            {
+                speed=0.5f;
+            }
+            playerRigidbody2D.MovePosition(transform.position + movement);
+        } else if (isRolling)
+        {
+            movement = direction.normalized * rollSpeed * Time.deltaTime;
             playerRigidbody2D.MovePosition(transform.position + movement);
         }
     }
@@ -187,7 +212,18 @@ public class PlayerController : MonoBehaviour
         protection = false;
         yield break; //ending loop
     }
-
+    //After pressing space - dodge roll
+    private void Roll()
+    {
+        Debug.Log("Rozpoczęcie rollowania");
+        _animator.SetTrigger("Roll");
+        isRolling = true;
+        Invoke("StopRoll", rollDuration);
+    }
+    private void StopRoll() {
+        Debug.Log("Zakończenie rollowania");
+        isRolling = false;
+    }
     //After clicking "New Game"
     public void PlayerReset()
     {
@@ -200,9 +236,13 @@ public class PlayerController : MonoBehaviour
         levelingSystem.ResetLevel();
         GetComponent<PlayerBars>().UpdateExpBar(levelingSystem.currentExp, levelingSystem.maxExp[levelingSystem.level]); //updating EXP bar
 
+        staminaSystem.ResetStamina();
+        
         GameObject.Find("InventoryUI").GetComponent<Inventory>().ResetEquipment();
     }
-
+    public void IncreaseMaxStamina(int newMaxStamina) {
+        staminaSystem.SetMaxStamina(newMaxStamina);
+    }
     public void GetAttacked(int damage)
     {
         protection = true;
