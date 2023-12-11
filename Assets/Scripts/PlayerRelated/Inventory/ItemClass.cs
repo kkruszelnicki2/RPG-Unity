@@ -1,46 +1,25 @@
 using UnityEngine;
-public class ItemClass
-{
-    private int amount;
-    private int damage = 0;
-    private string name;
-    private string tag;
 
-    public enum ItemType
+public class ItemClass: MonoBehaviour
+{
+    public Item item;
+    private int amount = 0;
+
+    public void InitialiseItem(Item newItem, int amount)
     {
-        Weapon,
-        Material,
-        Health_Potion,
+        this.item = newItem;
+        this.GetComponent<SpriteRenderer>().sprite = newItem.sprite;
+        SetAmount(amount);
     }
 
-    ItemType itemType;
-
-    public ItemClass() { }
-
-    public void Constructor(string name, int amount, int damage, string tag)
+    public int GetPrice()
     {
-        switch(tag)
-        {
-            case "W":
-                this.amount = 1;
-                this.damage = damage;
-                this.name = name;
-                this.tag = tag;
-                this.itemType = ItemType.Weapon;
-                break;
-            case "M":
-                this.amount = amount;
-                this.name = name;
-                this.tag = tag;
-                this.itemType = ItemType.Material;
-                break;
-            case "HP":
-                this.amount = amount;
-                this.name = name;
-                this.tag = tag;
-                this.itemType = ItemType.Health_Potion;
-                break;
-        }
+        return item.price;
+    }
+
+    public string GetName()
+    {
+        return item.name;
     }
 
     public int GetAmount()
@@ -53,28 +32,13 @@ public class ItemClass
         this.amount = this.amount + extraAmount;
     }
 
-    public string GetName()
+    public void SetAmount(int newAmount)
     {
-        return this.name;
+        this.amount = newAmount;
     }
 
-    public int GetDamage()
+    public void DestroyItem()
     {
-        return this.damage;
-    }
-
-    public string GetTag()
-    {
-        return this.tag;
-    }
-
-    public ItemType GetItemType()
-    {
-        return this.itemType;
-    }
-
-    ~ItemClass()
-    {
-
+        Destroy(gameObject);
     }
 }

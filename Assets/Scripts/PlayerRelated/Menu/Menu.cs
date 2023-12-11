@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] Item itemObject;
+    [SerializeField] GameObject itemObject;
 
     [SerializeField] private GameObject player;
 
@@ -96,15 +96,17 @@ public class PauseMenu : MonoBehaviour
             //Items
             for(int i=0; i<load.itemAmount.Count;i++)
             {
-                itemObject.GetComponent<Item>().Constructor(load.itemName[i], load.itemAmount[i], load.itemDamage[i], load.itemTag[i]);
-                GameObject.Find("InventoryUI").GetComponent<Inventory>().AddItem(itemObject,false);
+                GameObject newItem = Instantiate(itemObject);
+                newItem.GetComponent<ItemClass>().InitialiseItem((Item)AssetDatabase.LoadAssetAtPath(load.itemSO[i], typeof(Item)), load.itemAmount[i]);
+                GameObject.Find("InventoryUI").GetComponent<Inventory>().AddItem(newItem.GetComponent<ItemClass>());
+                Destroy(newItem);
             }
             //Ground items
             for (int i = 0; i < load.groundItemAmount.Count; i++)
             {
-                Item newGroundItem;
+                GameObject newGroundItem;
                 newGroundItem = Instantiate(itemObject, load.groundItemPos[i], Quaternion.identity);
-                newGroundItem.GetComponent<Item>().Constructor(load.groundItemName[i], load.groundItemAmount[i], load.groundItemDamage[i], load.groundItemTag[i]);
+                newGroundItem.GetComponent<ItemClass>().InitialiseItem((Item)AssetDatabase.LoadAssetAtPath(load.groundItemSO[i], typeof(Item)), load.groundItemAmount[i]);
             }
             //Enemies
             for (int i = 0; i < load.enemyID.Count; i++)
@@ -137,18 +139,14 @@ public class PauseMenu : MonoBehaviour
             if(itemSlot.GetComponent<ItemSlot>().isOccupied())
             {
                 saveObject.itemAmount.Add(itemSlot.GetComponent<ItemSlot>().item.GetAmount());
-                saveObject.itemDamage.Add(itemSlot.GetComponent<ItemSlot>().item.GetDamage());
-                saveObject.itemTag.Add(itemSlot.GetComponent<ItemSlot>().item.GetTag());
-                saveObject.itemName.Add(itemSlot.GetComponent<ItemSlot>().item.GetName());
+                saveObject.itemSO.Add(AssetDatabase.GetAssetPath(itemSlot.GetComponent<ItemSlot>().item.item));
             }
         }
 
         foreach (GameObject groundItem in GameObject.FindGameObjectsWithTag("Item"))
         {
-            saveObject.groundItemAmount.Add(groundItem.GetComponent<Item>().itClass.GetAmount());
-            saveObject.groundItemDamage.Add(groundItem.GetComponent<Item>().itClass.GetDamage());
-            saveObject.groundItemTag.Add(groundItem.GetComponent<Item>().itClass.GetTag());
-            saveObject.groundItemName.Add(groundItem.GetComponent<Item>().itClass.GetName());
+            saveObject.groundItemAmount.Add(groundItem.GetComponent<ItemClass>().GetAmount());
+            saveObject.groundItemSO.Add(AssetDatabase.GetAssetPath(groundItem.GetComponent<ItemSlot>().item.item));
             saveObject.groundItemPos.Add(groundItem.transform.position);
         }
 
@@ -167,9 +165,11 @@ public class PauseMenu : MonoBehaviour
     {
         for (int i = 0; i < ApplicationModel.itemAmount.Count; i++)
         {
-            Debug.Log(ApplicationModel.itemAmount.Count);
-            itemObject.GetComponent<Item>().Constructor(ApplicationModel.itemName[i], ApplicationModel.itemAmount[i], ApplicationModel.itemDamage[i], ApplicationModel.itemTag[i]);
-            GameObject.Find("InventoryUI").GetComponent<Inventory>().AddItem(itemObject, false);
+            Debug.Log(ApplicationModel.itemSO[i].item.itemName + " " + ApplicationModel.itemAmount[i]);
+            GameObject newItem = Instantiate(itemObject);
+            newItem.GetComponent<ItemClass>().InitialiseItem(ApplicationModel.itemSO[i].item, ApplicationModel.itemAmount[i]);
+            GameObject.Find("InventoryUI").GetComponent<Inventory>().AddItem(newItem.GetComponent<ItemClass>());
+            Destroy(newItem);
         }
 
         player.transform.position = ApplicationModel.playerPos;
@@ -190,15 +190,11 @@ public class PauseMenu : MonoBehaviour
         public int exp;
         //Items in inventory
         public List<int> itemAmount = new List<int>();
-        public List<int> itemDamage = new List<int>();
-        public List<string> itemTag = new List<string>();
-        public List<string> itemName = new List<string>();
+        public List<string> itemSO = new List<string>();
         //Items on ground
         public List<Vector3> groundItemPos = new List<Vector3>();
         public List<int> groundItemAmount = new List<int>();
-        public List<int> groundItemDamage = new List<int>();
-        public List<string> groundItemTag = new List<string>();
-        public List<string> groundItemName = new List<string>();
+        public List<string> groundItemSO = new List<string>();
         //Enemies
         public List<Vector3> enemyPos = new List<Vector3>();
         public List<int> enemyHealth = new List<int>();

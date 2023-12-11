@@ -28,7 +28,7 @@ public class Game : MonoBehaviour
                         new Quest("Pierwsze zadanie!","Zabij","Zabij 3 slime'y","Slime",3,"Guardian",100)
                         );
 
-                    reward.Constructor("health potion",2,0,"HP");
+                    //reward.Constructor("health potion",2,0,"HP");
                     GameObject.Find("QuestLog").GetComponent<QuestLog>().SetReward(reward);
 
                     break;
@@ -37,7 +37,7 @@ public class Game : MonoBehaviour
                         new Quest("Wiêkszy przeciwnik.", "Zabij", "Pokonaj Króla Slime", "Król Slime", 1, "Guardian", 300)
                         );
 
-                    reward.Constructor("health potion", 4, 0, "HP");
+                    //reward.Constructor("health potion", 4, 0, "HP");
                     GameObject.Find("QuestLog").GetComponent<QuestLog>().SetReward(reward);
                     break;
             }

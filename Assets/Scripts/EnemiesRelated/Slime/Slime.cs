@@ -142,12 +142,12 @@ public class Slime : Enemy
 
         this.Spawner.GetComponent<MobSpawner>().ReduceCounter();
 
-        GameObject itemInstance = Instantiate(item, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
-        GetComponent<SlimeDrop>().Drop(itemInstance);
+        Item droppedItem = GetComponent<SlimeDrop>().Drop();
 
-        if (itemInstance.GetComponent<Item>().itClass.GetName() == null)
+        if (droppedItem != null)
         {
-            Destroy(itemInstance.gameObject);
+            GameObject itemInstance = Instantiate(item, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+            itemInstance.GetComponent<ItemClass>().InitialiseItem(droppedItem, 1);
         }
 
         GameObject.Find("QuestLog").GetComponent<QuestLog>().Progress("Slime");

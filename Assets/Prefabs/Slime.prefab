@@ -380,6 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40d0df17a46dc0941b76a735b5721838, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   exp: 2
   speed: 0.5
   sightRange: 0.5
@@ -398,3 +399,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f377002b2b56b4b9076e1540a55124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loots:
+  - {fileID: 11400000, guid: b971a7b2e3d7a9e4792c3c211eede9f5, type: 2}
+  - {fileID: 11400000, guid: 558d660d21bce2346951b93d2c6891c9, type: 2}
+  itemDropped: {fileID: 4724402055370637537, guid: da29e5e8242a9184995da1b91d140982,
+    type: 3}

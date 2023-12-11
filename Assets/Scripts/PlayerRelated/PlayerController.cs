@@ -33,7 +33,6 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        GameObject.Find("InventoryUI").GetComponent<Inventory>().Constructor();
         playerRigidbody2D = GetComponent<Rigidbody2D>();
     }
 
@@ -208,5 +207,15 @@ public class PlayerController : MonoBehaviour
 
         coroutine = RemoveProtection(0.2f);
         StartCoroutine(coroutine);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        ItemClass item = collision.GetComponent<ItemClass>();
+        if(item != null)
+        {
+            GameObject.Find("InventoryUI").GetComponent<Inventory>().AddItem(item);
+            item.DestroyItem();
+        }
     }
 }

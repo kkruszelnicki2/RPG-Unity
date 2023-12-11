@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static ItemSlot;
 
 public static class ApplicationModel
 {
@@ -8,9 +9,7 @@ public static class ApplicationModel
 
     // PLAYER ITEMS
     public static List<int> itemAmount = new List<int>();
-    public static List<int> itemDamage = new List<int>();
-    public static List<string> itemTag = new List<string>();
-    public static List<string> itemName = new List<string>();
+    public static List<ItemClass> itemSO = new List<ItemClass>();
 
     // PLAYER DATA
     public static Vector3 playerPos;
@@ -31,9 +30,7 @@ public static class ApplicationModel
             if (itemSlot.GetComponent<ItemSlot>().isOccupied())
             {
                 itemAmount.Add(itemSlot.GetComponent<ItemSlot>().item.GetAmount());
-                itemDamage.Add(itemSlot.GetComponent<ItemSlot>().item.GetDamage());
-                itemTag.Add(itemSlot.GetComponent<ItemSlot>().item.GetTag());
-                itemName.Add(itemSlot.GetComponent<ItemSlot>().item.GetName());
+                itemSO.Add(itemSlot.GetComponent<ItemSlot>().item);
             }
         }
 
@@ -52,8 +49,6 @@ public static class ApplicationModel
     private static void ResetData()
     {
         itemAmount.Clear();
-        itemDamage.Clear();
-        itemTag.Clear();
-        itemName.Clear();
+        itemSO.Clear();
     }
 }

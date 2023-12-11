@@ -1,28 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour
 {
-    [SerializeField] Sprite weaponIcon;
-    [SerializeField] Sprite slimeIcon;
-    [SerializeField] Sprite healthPotionIcon;
-
-    private int id;
     private bool occupied = false;
     private int maxStack = 4;
 
+    /*public InventoryItem item = InventoryItem.GetEmptyItem(); */
     public ItemClass item;
 
-    public int GetID()
+    public event Action<ItemSlot> OnItemClicked, OnRightMouseBtnClick;
+    public void OnPointerClick(BaseEventData data)
     {
-        return this.id;
-    }
-
-    public void SetID(int newID)
-    {
-        this.id = newID;
+        PointerEventData pointerData = (PointerEventData)data;
+        if (pointerData.button == PointerEventData.InputButton.Right)
+        {
+            OnRightMouseBtnClick?.Invoke(this);
+        }
+        else
+        {
+            OnItemClicked?.Invoke(this);
+        }
     }
 
     public bool isOccupied()
@@ -35,23 +35,29 @@ public class ItemSlot : MonoBehaviour
         occupied = !occupied;
     }
 
-    public void SlotUpdate(Item item)
+    public void SlotUpdate(ItemClass item)
     {
-        this.item = new ItemClass();
+        this.item = item;
         Occupy();
-        this.item.Constructor(item.GetComponent<Item>().itClass.GetName(), item.GetComponent<Item>().itClass.GetAmount(), item.GetComponent<Item>().itClass.GetDamage(), item.GetComponent<Item>().itClass.GetTag());
         transform.Find("Image").GetComponent<Image>().sprite = item.GetComponent<SpriteRenderer>().sprite;
         Color color = transform.Find("Image").GetComponent<Image>().color;
         color.a = 1;
         transform.Find("Image").GetComponent<Image>().color = color;
-
         transform.Find("Amount").GetComponent<Text>().text = this.item.GetAmount().ToString();
     }
 
     public void AmountTextUpdate(int extraAmount)
     {
         this.item.AddAmount(extraAmount);
-        transform.Find("Amount").GetComponent<Text>().text = this.item.GetAmount().ToString();
+
+        if(this.item.GetAmount() <= 0)
+        {
+            RemoveItem();
+        }
+        else
+        {
+            transform.Find("Amount").GetComponent<Text>().text = this.item.GetAmount().ToString();
+        }
     }
 
     public bool isFull(int extraAmount)
@@ -75,7 +81,6 @@ public class ItemSlot : MonoBehaviour
             transform.Find("Image").GetComponent<Image>().color = color;
 
             Occupy();
-
         }
     }
 }

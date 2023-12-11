@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4724402055370637540}
-  - component: {fileID: 4724402055370637539}
   - component: {fileID: 4724402055370637538}
   - component: {fileID: 4910518530888931273}
+  - component: {fileID: -8034960949738842498}
   m_Layer: 0
   m_Name: Item
   m_TagString: Item
@@ -34,21 +34,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4724402055370637539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4724402055370637537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e929664bb3c1135489a2707f73889daf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponIcon: {fileID: 21300000, guid: ddbf4cac188ad48e6a8b02968f022176, type: 3}
-  slimeIcon: {fileID: 21300000, guid: a5833503a1f1243e2b5419bfd4f81b18, type: 3}
-  healthPotionIcon: {fileID: 21300000, guid: ee1724ab630d24cebb282289abcf17e1, type: 3}
 --- !u!212 &4724402055370637538
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -90,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ee1724ab630d24cebb282289abcf17e1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a5833503a1f1243e2b5419bfd4f81b18, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -146,3 +131,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0
+--- !u!114 &-8034960949738842498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4724402055370637537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30275bcffad3a86448cc27dd46fd596f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 558d660d21bce2346951b93d2c6891c9, type: 2}

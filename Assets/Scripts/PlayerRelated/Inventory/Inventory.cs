@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,18 @@ public class Inventory : MonoBehaviour
     Vector2 outOfGame = new(1400,450);
     Vector2 inGame = new(800,450);
 
+    public void Awake()
+    {
+        Transform[] allChildren = GetComponentsInChildren<Transform>();
+        foreach (Transform child in allChildren)
+        {
+            if (child.name.Equals("Item_slot"))
+            {
+                itemSlots.Add(child.gameObject);
+            }
+        }
+    }
+
     private void Update()
     {
         if (Input.GetKeyUp(KeyCode.I) && Time.timeScale == 1)
@@ -17,42 +30,19 @@ public class Inventory : MonoBehaviour
             Move();
         }
     }
-    public void Constructor()
-    {
-        int i = 1;
-        Transform[] allChildren = GetComponentsInChildren<Transform>();
-        foreach (Transform child in allChildren)
-        {
-            if (child.name.Equals("Item_slot"))
-            {
-                itemSlots.Add(child.gameObject);
-                child.GetComponent<ItemSlot>().SetID(i);
-                i++;
-            }
-            
-        }
-    }
 
-    public void AddItem(Item Newitem, bool isPicked)
+    public void AddItem(ItemClass Newitem)
     {
         foreach(GameObject itemSlot in itemSlots)
         {
             if (!itemSlot.GetComponent<ItemSlot>().isOccupied())
             {
                 itemSlot.GetComponent<ItemSlot>().SlotUpdate(Newitem);
-                if (isPicked)
-                {
-                    Destroy(Newitem.gameObject);
-                }
                 break;
             }
-            else if (itemSlot.GetComponent<ItemSlot>().item.GetName().Equals(Newitem.itClass.GetName()) && !itemSlot.GetComponent<ItemSlot>().isFull(Newitem.itClass.GetAmount()))
+            else if (itemSlot.GetComponent<ItemSlot>().item.GetName().Equals(Newitem.GetName()) && !itemSlot.GetComponent<ItemSlot>().isFull(Newitem.GetAmount()))
             {
-                itemSlot.GetComponent<ItemSlot>().AmountTextUpdate(Newitem.itClass.GetAmount());
-                if (isPicked)
-                {
-                    Destroy(Newitem.gameObject);
-                }
+                itemSlot.GetComponent<ItemSlot>().AmountTextUpdate(Newitem.GetAmount());
                 break;
             }
         }

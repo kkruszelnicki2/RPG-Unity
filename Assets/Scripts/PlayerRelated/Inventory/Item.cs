@@ -1,52 +1,37 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public abstract class Item : ScriptableObject
 {
-    [SerializeField] Sprite weaponIcon;
-    [SerializeField] Sprite slimeIcon;
-    [SerializeField] Sprite healthPotionIcon;
+    [Header("Only gameplay")]
+    public int price;
+    public int chance;
 
+    [Header("Only UI")]
+    public bool stackable;
 
-    public ItemClass itClass = new ItemClass();
+    [Header("Both")]
+    public Sprite sprite;
+    public string itemName;
+}
 
-    Inventory inventory;
+public interface IDestroyableItem
+{
 
+}
 
-    public void Constructor(string name, int amount, int damage, string tag)
-    {
-        itClass.Constructor(name,amount,damage,tag);
-        switch (tag)
-        {
-            case "W":
-                SetSprite(weaponIcon);
-                break;
-            case "M":
-                switch(itClass.GetName())
-                {
-                    case "slime":
-                        SetSprite(slimeIcon);
-                        break;
-                }
-                break;
-            case "HP":
-                SetSprite(healthPotionIcon);
-                break;
-        }
-    }
+public interface IItemAction
+{
+    public string ActionName { get; }
+    //public AudioClip actionSFX { get; }
+    bool PerformAction(GameObject character);
+}
 
-    void SetSprite(Sprite newSprite)
-    {
-        gameObject.GetComponent<SpriteRenderer>().sprite = newSprite;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            inventory = GameObject.Find("InventoryUI").GetComponent<Inventory>();
-            inventory.AddItem(this,true);
-        }
-    }
+[Serializable]
+public class ModifierData
+{
+    public CharacterStatModifierSO statModifier;
+    public int value;
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Experimental.Rendering;
 
 public class QuestLog : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class QuestLog : MonoBehaviour
     [SerializeField] GameObject questObjective;
     [SerializeField] GameObject questProgress;
 
-    [SerializeField] Item itemObject;
+    [SerializeField] GameObject itemObject;
 
     private bool duringQuest = false;
 
@@ -53,8 +54,8 @@ public class QuestLog : MonoBehaviour
 
         foreach (ItemClass item in quest.GetRewards())
         {
-            itemObject.GetComponent<Item>().Constructor(item.GetName(), item.GetAmount(), item.GetDamage(), item.GetTag());
-            GameObject.Find("InventoryUI").GetComponent<Inventory>().AddItem(itemObject, false);
+            itemObject.GetComponent<ItemClass>().InitialiseItem(item.item,item.GetAmount());
+            GameObject.Find("InventoryUI").GetComponent<Inventory>().AddItem(itemObject.GetComponent<ItemClass>());
         }
 
         GameObject.Find("Player").GetComponent<PlayerController>().Experience(quest.GetExp());
