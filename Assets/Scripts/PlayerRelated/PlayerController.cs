@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
             direction.x = direction.x + 1;
             if (!GameObject.Find("Game").GetComponent<Game>().dialogue)
             {
-                transform.localScale = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(0.08f, 0.08f, 0.08f);
             }
         }
         if (Input.GetKeyDown(KeyCode.W))
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
             direction.x = direction.x - 1;
             if (!GameObject.Find("Game").GetComponent<Game>().dialogue)
             {
-                transform.localScale = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(-0.08f, 0.08f, 0.08f);
             }
         }
         if (Input.GetKeyDown(KeyCode.S))
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
             direction.x = direction.x - 1;
             if(direction.x != 0 && !GameObject.Find("Game").GetComponent<Game>().dialogue)
             {
-                transform.localScale = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(-0.08f, 0.08f, 0.08f);
             }
         }
 
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
             direction.x = direction.x + 1;
             if (direction.x != 0 && !GameObject.Find("Game").GetComponent<Game>().dialogue)
             {
-                transform.localScale = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(0.08f, 0.08f, 0.08f);
             }
         }
 
