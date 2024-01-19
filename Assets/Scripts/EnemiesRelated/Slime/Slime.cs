@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Slime : Enemy
 {
+    private float originalScaleX;
     private GameObject Player;
     public GameObject item;
 
@@ -26,30 +27,31 @@ public class Slime : Enemy
     {
         _animator = GetComponent<Animator>();
         Player = GameObject.FindGameObjectWithTag("Player"); //przypisanie obiektu gracza
+        originalScaleX = transform.localScale.x;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Vector2.Distance(Player.transform.position,transform.position) < sightRange && !isDamaged) //je¿eli gracz znajduje siê w polu widzenia przeciwnika
+        if(Vector2.Distance(Player.transform.position,transform.position) < sightRange && !isDamaged) //jeï¿½eli gracz znajduje siï¿½ w polu widzenia przeciwnika
         {
-            //sprawdzanie po³o¿enia przeciwnika wzglêdem gracza
+            //sprawdzanie poï¿½oï¿½enia przeciwnika wzglï¿½dem gracza
             direction.x = (Player.transform.position.x - transform.position.x);
             direction.y = (Player.transform.position.y - transform.position.y);
             //ruch przeciwnika
             float scaleX;
             if (transform.position.x - Player.transform.position.x == 0)
             {
-                scaleX = transform.localScale.x;
+                scaleX = originalScaleX;
             }
             else
             {
-                scaleX = -1 * Mathf.Abs(transform.localScale.x) * direction.x / (Mathf.Abs(transform.position.x - Player.transform.position.x));
+                scaleX = Mathf.Sign(Player.transform.position.x - transform.position.x) * originalScaleX;
             }
             transform.localScale = new Vector3(scaleX, transform.localScale.y, 1); //obracanie spritem przeciwnika gdy idzie w lewo/prawo
             _animator.SetBool("Idle",false);
             _animator.SetBool("Run", true);
-            transform.Translate(direction.normalized * speed * Time.deltaTime); //ruch przeciwnika (normalizacja wektora, uwzglêdnienie czasu oraz prêdkoœci)
+            transform.Translate(direction.normalized * speed * Time.deltaTime); //ruch przeciwnika (normalizacja wektora, uwzglï¿½dnienie czasu oraz prï¿½dkoï¿½ci)
         }
         else if(isDamaged)
         {
@@ -96,7 +98,7 @@ public class Slime : Enemy
             gameObject.GetComponentInChildren<HealthBarUpdate>().HealthUpdate(healthSystem.GetMaxHealth(), healthSystem.GetHealth());
         }
     }
-    //Odepchniêcie potwora gdy otrzyma atak
+    //Odepchniï¿½cie potwora gdy otrzyma atak
     public void Push()
     {
         if(!isDamaged)
