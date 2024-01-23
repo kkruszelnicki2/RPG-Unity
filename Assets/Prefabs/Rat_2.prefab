@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 5183809142785986296}
   - component: {fileID: 91880961}
   m_Layer: 0
-  m_Name: Rat_1
+  m_Name: Rat_2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -263,7 +263,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -2
-  m_Sprite: {fileID: 382736360, guid: 6986c50dfed8f31468a6369ee271205f, type: 3}
+  m_Sprite: {fileID: 946528916, guid: eea41b0bafcc1994aaf1faa63881931b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -306,18 +306,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.02552019, y: -0.0040995777}
+  m_Offset: {x: -1.04, y: -1.41}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 12.000001, y: 12.001953}
+    oldSize: {x: 12.002931, y: 12}
     newSize: {x: 0.52, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.37, y: 7.85}
+  m_Size: {x: 8.68, y: 8.54}
   m_EdgeRadius: 0
 --- !u!50 &6073543014583400803
 Rigidbody2D:
@@ -356,7 +356,7 @@ Animator:
   m_GameObject: {fileID: 6073543014583400806}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 03c794afb93e6ed4787593067f5cfa3a, type: 2}
+  m_Controller: {fileID: 9100000, guid: d566a61ae3debf6478b432753a062f61, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
