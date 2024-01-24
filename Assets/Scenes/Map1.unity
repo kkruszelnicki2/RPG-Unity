@@ -2288,6 +2288,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1857276593, guid: bf94d80ce8d55c64c869de62008a0691, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1857276593, guid: bf94d80ce8d55c64c869de62008a0691, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1895268578933477079, guid: bf94d80ce8d55c64c869de62008a0691,
         type: 3}
       propertyPath: hpBar
@@ -2303,6 +2311,21 @@ PrefabInstance:
       propertyPath: fillImage
       value: 
       objectReference: {fileID: 1818439474}
+    - target: {fileID: 4600653375665258039, guid: bf94d80ce8d55c64c869de62008a0691,
+        type: 3}
+      propertyPath: rollDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7705133810878136055, guid: bf94d80ce8d55c64c869de62008a0691,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 12.000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 7705133810878136055, guid: bf94d80ce8d55c64c869de62008a0691,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 12.01172
+      objectReference: {fileID: 0}
     - target: {fileID: 8947170061464130484, guid: bf94d80ce8d55c64c869de62008a0691,
         type: 3}
       propertyPath: m_LocalScale.x

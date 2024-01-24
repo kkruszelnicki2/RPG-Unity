@@ -76,6 +76,7 @@ public class Slime : Enemy
                 Invoke("RemoveDestination", 2.62f);
             }
         }
+        
     }
 
     public override void GetHit()
