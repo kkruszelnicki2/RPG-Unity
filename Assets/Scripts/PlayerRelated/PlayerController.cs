@@ -111,12 +111,10 @@ public class PlayerController : MonoBehaviour
         if(direction.Equals(Vector2.zero) && !_animator.GetBool("Idle")) //start idle animation if player isn't moving and isn't idle
         {
             _animator.SetBool("Idle", true);
-            _animator.SetBool("Run", false);
         }
         else if(!direction.Equals(Vector2.zero) && _animator.GetBool("Idle") && !GameObject.Find("Game").GetComponent<Game>().dialogue) //start run animation if player is moving and is idle
         {
             _animator.SetBool("Idle", false);
-            _animator.SetBool("Run", true);
         }
 
         if(Input.GetKeyDown(KeyCode.Mouse0) && canMove && !GameObject.Find("Game").GetComponent<Game>().dialogue)
@@ -126,7 +124,7 @@ public class PlayerController : MonoBehaviour
             canMove = false;
             Invoke("Attack", 0.17f);
             Invoke("Attack", 0.25f); //collision with sword is active for 8 seconds
-            Invoke("CanMoveAgain",1); //player will be able to walk after 1 second
+            Invoke("CanMoveAgain",1.1f); //player will be able to walk after 1 second
         } 
         if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Time.time > lastRollTime + rollCooldown && direction != Vector2.zero)
         {
@@ -146,7 +144,6 @@ public class PlayerController : MonoBehaviour
     public void DontMove()
     {
         _animator.SetBool("Idle", true);
-        _animator.SetBool("Run", false);
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
