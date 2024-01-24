@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: 11
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7,
     type: 3}
   m_Color: {r: 0.5, g: 0.4268868, b: 0.4268868, a: 1}
@@ -262,7 +262,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: 8
   m_Sprite: {fileID: 1765346130728286282, guid: 91ac0bd7b3e3ab84685303e8902a8c4b,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -400,7 +400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loots:
-  - {fileID: 11400000, guid: b971a7b2e3d7a9e4792c3c211eede9f5, type: 2}
   - {fileID: 11400000, guid: 558d660d21bce2346951b93d2c6891c9, type: 2}
+  - {fileID: 11400000, guid: b971a7b2e3d7a9e4792c3c211eede9f5, type: 2}
   itemDropped: {fileID: 4724402055370637537, guid: da29e5e8242a9184995da1b91d140982,
     type: 3}

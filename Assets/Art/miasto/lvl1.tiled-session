@@ -1,0 +1,101 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "lesna.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "2.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        },
+        "3.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "bez nazwy.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 1570.6666666666665,
+                "y": 442
+            }
+        },
+        "lesna.tmx": {
+            "expandedObjectLayers": [
+                19
+            ],
+            "scale": 0.33,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 1237.8787878787878,
+                "y": 1553.030303030303
+            }
+        },
+        "lv1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 2
+        },
+        "lvl1org.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "misto.tmx": {
+            "scale": 1,
+            "selectedLayer": 11,
+            "viewCenter": {
+                "x": 721.5,
+                "y": 1000.5
+            }
+        },
+        "plansz2.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
+        "plansza1.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 2
+        },
+        "ppppfff kopia 11.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Users/Sekini/Documents/STUDIA/szczury inwazja/miasto",
+    "map.height": 60,
+    "map.lastUsedFormat": "tmx",
+    "map.renderOrder": null,
+    "map.tileHeight": 20,
+    "map.tileWidth": 20,
+    "map.width": 60,
+    "openFiles": [
+        "lesna.tmx",
+        "misto.tmx"
+    ],
+    "project": "lvl1.tiled-project",
+    "recentFiles": [
+        "misto.tmx",
+        "lesna.tmx",
+        "plansz2.tsx",
+        "plansza1.tsx",
+        "lv1.tsx",
+        "ppppfff kopia 11.tsx",
+        "bez nazwy.tmx",
+        "3.tsx",
+        "2.tsx",
+        "lvl1org.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 20,
+        "width": 20
+    },
+    "tileset.transparentColor": "#ffb0fb",
+    "tileset.useTransparentColor": true
+}
