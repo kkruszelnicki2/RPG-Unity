@@ -16,6 +16,13 @@ public class PlayerController : MonoBehaviour
     private bool canMove = true;
     private Vector3 movement;
     private Rigidbody2D playerRigidbody2D;
+    
+    //Rolling
+    public float rollDistance = 5.0f;
+    public float rollSpeed = 10.0f;
+    public float rollDuration = 0.5f; // Duration of the roll in seconds
+    private float rollCooldown = 1.0f; // Cooldown time after rolling
+    private float lastRollTime = -1.0f; // Time when the last roll was performed
 
     //attacking
     public GameObject attackHitbox;
@@ -29,7 +36,8 @@ public class PlayerController : MonoBehaviour
 
     public HealthSystem healthSystem = new HealthSystem(100);
     public LevelingSystem levelingSystem = new LevelingSystem();
-
+    
+    private bool isRolling = false;
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -103,12 +111,10 @@ public class PlayerController : MonoBehaviour
         if(direction.Equals(Vector2.zero) && !_animator.GetBool("Idle")) //start idle animation if player isn't moving and isn't idle
         {
             _animator.SetBool("Idle", true);
-            _animator.SetBool("Run", false);
         }
         else if(!direction.Equals(Vector2.zero) && _animator.GetBool("Idle") && !GameObject.Find("Game").GetComponent<Game>().dialogue) //start run animation if player is moving and is idle
         {
             _animator.SetBool("Idle", false);
-            _animator.SetBool("Run", true);
         }
 
         if(Input.GetKeyDown(KeyCode.Mouse0) && canMove && !GameObject.Find("Game").GetComponent<Game>().dialogue)
@@ -118,14 +124,26 @@ public class PlayerController : MonoBehaviour
             canMove = false;
             Invoke("Attack", 0.17f);
             Invoke("Attack", 0.25f); //collision with sword is active for 8 seconds
-            Invoke("CanMoveAgain",1); //player will be able to walk after 1 second
+            Invoke("CanMoveAgain",1.1f); //player will be able to walk after 1 second
         } 
+        if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Time.time > lastRollTime + rollCooldown && direction != Vector2.zero)
+        {
+            if (!isRolling)
+            {
+                isRolling = true;
+                StartCoroutine(PerformRoll());
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
+        {
+            isRolling = false;
+        }
     }
 
     public void DontMove()
     {
         _animator.SetBool("Idle", true);
-        _animator.SetBool("Run", false);
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -163,7 +181,23 @@ public class PlayerController : MonoBehaviour
         }
         GetComponent<PlayerBars>().UpdateExpBar(levelingSystem.currentExp, levelingSystem.maxExp[levelingSystem.level]); //updating EXP bar
     }
+    IEnumerator PerformRoll()
+    {
+        _animator.SetTrigger("Roll"); // Aktywowanie animacji toczenia
 
+        float startTime = Time.time;
+        Vector3 startPosition = transform.position;
+        Vector2 rollDirection = direction.normalized; // Użyj zapisanego kierunku ruchu
+        Vector3 endPosition = startPosition + new Vector3(rollDirection.x, rollDirection.y, 0) * rollDistance;
+
+        while (Time.time < startTime + rollDuration && isRolling)
+        {
+            transform.position = Vector3.Lerp(startPosition, endPosition, (Time.time - startTime) / rollDuration);
+            yield return null;
+        }
+        isRolling = false;
+        lastRollTime = Time.time;
+    }
     private void BaseStatsUp() //Raising stats after reaching next level
     {
         damage = damage + damageScale;
